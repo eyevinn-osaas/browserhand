@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install Chromium (for tests + eval)
+        run: npx playwright install --with-deps chromium
+      - name: Typecheck & build
+        run: npm run build
+      - name: Verify committed openapi.json is up to date
+        run: |
+          npm run openapi
+          git diff --exit-code openapi.json || (echo "openapi.json is stale — run 'npm run openapi' and commit." && exit 1)
+      - name: Unit + integration tests
+        run: npm test
+      - name: Evaluation suite
+        run: npm run eval
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build container image
+        run: docker build -t browserhand:ci .

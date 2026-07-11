@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Storage</title></head>
+<body>
+  <h1>Storage</h1>
+  <p id="token">token: (none)</p>
+  <script>
+    // Persist a token in localStorage on first visit; reuse it on later visits.
+    // A session that imports another's context should see the SAME token.
+    let t = localStorage.getItem('token');
+    if (!t) {
+      t = 'tok-' + Math.floor(performance.now() * 1000);
+      localStorage.setItem('token', t);
+    }
+    document.getElementById('token').textContent = 'token: ' + t;
+  </script>
+</body>
+</html>

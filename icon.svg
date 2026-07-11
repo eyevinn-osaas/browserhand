@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="browserhand">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4f46e5"/>
+      <stop offset="1" stop-color="#0ea5e9"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#bg)"/>
+  <!-- browser window -->
+  <rect x="52" y="60" width="152" height="112" rx="14" fill="#ffffff"/>
+  <rect x="52" y="60" width="152" height="30" rx="14" fill="#e2e8f0"/>
+  <circle cx="70" cy="75" r="5" fill="#f87171"/>
+  <circle cx="88" cy="75" r="5" fill="#fbbf24"/>
+  <circle cx="106" cy="75" r="5" fill="#34d399"/>
+  <!-- content lines -->
+  <rect x="68" y="104" width="80" height="8" rx="4" fill="#cbd5e1"/>
+  <rect x="68" y="122" width="120" height="8" rx="4" fill="#e2e8f0"/>
+  <!-- pointer / hand cursor operating the page -->
+  <path d="M150 118 l58 24 -24 8 14 26 -12 6 -14 -26 -18 16 z" fill="#0f172a" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>
+</svg>

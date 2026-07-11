@@ -1,0 +1,41 @@
+{
+  "name": "browserhand",
+  "version": "0.1.0",
+  "description": "A reliable, deterministic web-automation API for AI agents: managed headless-browser sessions with selector-free perception and action primitives.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": "Eyevinn / birme",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "browserhand": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "eval": "tsx eval/run-eval.ts",
+    "openapi": "tsx scripts/gen-openapi.ts"
+  },
+  "dependencies": {
+    "@fastify/swagger": "^9.4.2",
+    "@fastify/swagger-ui": "^5.2.1",
+    "@fastify/websocket": "^11.0.2",
+    "fastify": "^5.2.1",
+    "pino": "^9.6.0",
+    "playwright": "1.61.1",
+    "ws": "^8.18.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "@types/ws": "^8.5.13",
+    "pino-pretty": "^13.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.4"
+  }
+}

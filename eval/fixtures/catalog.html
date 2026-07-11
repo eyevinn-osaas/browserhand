@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Catalog</title></head>
+<body>
+  <h1>Product Catalog</h1>
+  <label>Category
+    <select aria-label="Category" id="cat" onchange="document.getElementById('sel').textContent='Category: '+this.options[this.selectedIndex].text">
+      <option value="a">Apples</option>
+      <option value="b">Bananas</option>
+      <option value="c">Cherries</option>
+    </select>
+  </label>
+  <p id="sel">Category: Apples</p>
+  <ul>
+    <li>Widget — $10.00</li>
+    <li>Gadget — $20.00</li>
+    <li>Gizmo — $30.00</li>
+  </ul>
+  <p id="total">Total items: 3</p>
+</body>
+</html>
