@@ -22,6 +22,23 @@ describe('config', () => {
     expect(() => loadConfig({ MAX_CONCURRENT_SESSIONS: '-1' })).toThrow(/configuration/i);
     expect(() => loadConfig({ LOG_LEVEL: 'loud' })).toThrow(/configuration/i);
   });
+
+  it('falls back to defaults when an orchestrator injects empty-string values for unset vars (regression, #1)', () => {
+    const c = loadConfig({
+      PORT: '',
+      BROWSERHAND_API_KEY: '',
+      MAX_CONCURRENT_SESSIONS: '',
+      SESSION_TIMEOUT_MS: '',
+      LOG_LEVEL: '',
+      CDP_PORT: '',
+    });
+    expect(c.port).toBe(8080);
+    expect(c.apiKey).toBeUndefined();
+    expect(c.maxConcurrentSessions).toBe(5);
+    expect(c.sessionTimeoutMs).toBe(300_000);
+    expect(c.logLevel).toBe('info');
+    expect(c.cdpPort).toBe(9223);
+  });
 });
 
 describe('RingBuffer', () => {
