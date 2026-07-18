@@ -25,14 +25,26 @@ const ConfigSchema = z.object({
 
 export type Config = z.infer<typeof ConfigSchema>;
 
+/**
+ * Some orchestrators (including OSC) inject an empty string for an optional env
+ * var that was left unset, rather than omitting it. zod's `.default()` only
+ * applies to `undefined` — an empty string passes through and (for numbers) gets
+ * coerced to 0, silently defeating validators like `.positive()`. Normalize
+ * empty strings to `undefined` here, once, so every field's `.default()` applies
+ * the same way regardless of how the value was omitted.
+ */
+function emptyToUndefined(value: string | undefined): string | undefined {
+  return value === '' ? undefined : value;
+}
+
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
   const parsed = ConfigSchema.safeParse({
-    port: env.PORT,
-    apiKey: env.BROWSERHAND_API_KEY || undefined,
-    maxConcurrentSessions: env.MAX_CONCURRENT_SESSIONS,
-    sessionTimeoutMs: env.SESSION_TIMEOUT_MS,
-    logLevel: env.LOG_LEVEL,
-    cdpPort: env.CDP_PORT,
+    port: emptyToUndefined(env.PORT),
+    apiKey: emptyToUndefined(env.BROWSERHAND_API_KEY),
+    maxConcurrentSessions: emptyToUndefined(env.MAX_CONCURRENT_SESSIONS),
+    sessionTimeoutMs: emptyToUndefined(env.SESSION_TIMEOUT_MS),
+    logLevel: emptyToUndefined(env.LOG_LEVEL),
+    cdpPort: emptyToUndefined(env.CDP_PORT),
   });
 
   if (!parsed.success) {
